@@ -1,0 +1,421 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; }
+  @media only screen and (max-width: 75em) {
+    html {
+      font-size: 50%; } }
+
+body {
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  font-weight: 300;
+  line-height: 1.6;
+  height: 100vh;
+}
+
+.container{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.section-details{
+    border-right: 1px solid #4A25B4;
+    display: flex;
+    flex-direction: column;
+}
+
+i{
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.header{
+    flex: 0 0 10%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-evenly;
+    background-color: #4A25B4;
+}
+
+.profile-name{
+  cursor: pointer;
+}
+
+.profile-img{
+    border: 1px solid white;
+    border-radius: 100%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+}
+
+.profile-img-edit{
+  margin-bottom: 1rem;
+  margin-left: 3rem;
+  border: 1px solid white;
+  border-radius: 100%;
+  height: 10rem;
+  width: 10rem;
+  cursor: pointer;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.middle{
+  flex: 0 0 80%;
+}
+
+button{
+    cursor: pointer;
+    border-radius: 2rem;
+    color: #fff;
+    background: #110452;
+    border: none;
+    width: 14rem;
+    height: 5rem;
+    align-self: center;
+    
+}
+
+ul{
+  margin-left: 1rem;
+  font-size: 2rem;
+  color: #777;
+}
+
+ul > li {
+  margin-top: 1.5rem;
+  list-style-type: none;
+}
+
+ul li a {
+  text-decoration: none;
+  color: #110452;
+}
+
+.body-text{
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: #110452;
+}
+
+.pencil{
+  margin-right: 3rem;
+  color: #110452;
+}
+
+.pencil-label{
+  align-self: flex-end;
+  font-size: 3rem;
+  color: #110452;
+  cursor: pointer;
+}
+
+.tick{
+  margin-right: .5rem;
+  color: green;
+}
+
+.edited{
+  color: orange;
+}
+
+.cross{
+  margin-right: 2rem;
+  color: red;
+}
+
+.profile-input{
+  height: 3rem;
+  width: 12rem;
+  color: #110452;
+  outline: none;
+  border: 1px solid #110452;
+}
+
+.flex-column-center{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-column{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+}
+
+.flex-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /*justify-content: center;*/
+}
+
+.image-box{
+  height: 25rem;
+  width: 20rem;
+  border: 1px solid #110452;
+}
+
+label{
+  margin: 2rem 2rem;
+
+  cursor: pointer;
+}
+
+.images-save-button{
+  text-align: center;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+input {
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.space-bottom{
+  margin-bottom: 2rem;
+}
+
+.interest-update-form{
+  border: 1px solid #110452;
+  width: 70%;
+  padding: 2rem 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.interest-update-label{
+font-size: 2rem;
+padding: .5rem 1rem;
+border-radius: 2rem;
+border: 1px solid #916cf6ed;
+color: #916cf6ed;
+background-color: #fff;
+
+font-weight: 600;
+margin: 2rem 2rem;
+
+cursor: pointer;
+text-align: center;
+}
+
+.interest-update-input {
+visibility: hidden;
+display: none;
+}
+
+.interest-update-input[name=label-1-interests]:checked ~ .interest-update-label[for=label-1-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-2-interests]:checked ~ .interest-update-label[for=label-2-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-3-interests]:checked ~ .interest-update-label[for=label-3-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-4-interests]:checked ~ .interest-update-label[for=label-4-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-5-interests]:checked ~ .interest-update-label[for=label-5-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-6-interests]:checked ~ .interest-update-label[for=label-6-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-7-interests]:checked ~ .interest-update-label[for=label-7-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-8-interests]:checked ~ .interest-update-label[for=label-8-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-9-interests]:checked ~ .interest-update-label[for=label-9-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-10-interests]:checked ~ .interest-update-label[for=label-10-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-11-interests]:checked ~ .interest-update-label[for=label-11-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-12-interests]:checked ~ .interest-update-label[for=label-12-interests]{
+border: none;
+background-color: #916cf6ed;
+color: #fff;
+}
+
+.interest-update-input[name=label-1-campus]:checked ~ .interest-update-label[for=label-1-campus]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-2-campus]:checked ~ .interest-update-label[for=label-2-campus]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-3-campus]:checked ~ .interest-update-label[for=label-3-campus]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-4-campus]:checked ~ .interest-update-label[for=label-4-campus]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-1-gender]:checked ~ .interest-update-label[for=label-1-gender]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-2-gender]:checked ~ .interest-update-label[for=label-2-gender]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-1-level]:checked ~ .interest-update-label[for=label-1-level]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-2-level]:checked ~ .interest-update-label[for=label-2-level]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-3-level]:checked ~ .interest-update-label[for=label-3-level]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+.interest-update-input[name=label-4-level]:checked ~ .interest-update-label[for=label-4-level]{
+  border: none;
+  background-color: #916cf6ed;
+  color: #fff;
+}
+
+/* carousel code */
+.carousel-container {
+  position: relative;
+  margin: auto;
+  max-width: 800px;
+}
+
+.carousel-slide {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 16px;
+  color: #fff;
+  font-size: 24px;
+  user-select: none;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+#response{
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 2rem;
+  font-weight: 600;
+  background-color: #fff;
+  color: #000;
+  padding: 1rem 2rem;
+}
+
+.hidden{
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  display: none;
+}

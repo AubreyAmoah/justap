@@ -1,0 +1,186 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; }
+  @media only screen and (max-width: 75em) {
+    html {
+      font-size: 50%; } }
+
+body {
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  font-weight: 300;
+  line-height: 1.6;
+  height: 100vh;
+  background-image: linear-gradient(to bottom, rgba(17, 17, 18, 0.235), rgba(17, 17, 18, 0.235)), url('../images/sweet.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.one{
+    display: flex;
+    flex-direction: column;
+}
+
+.one > img{
+ font-size: 4rem;
+ font-weight: 400;
+ align-self: flex-start;
+ margin-left: 6rem;
+}
+
+.one > h1{
+    font-size: 6rem;
+}
+
+.one > h2{
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 4rem;
+    align-self: flex-start;
+    margin-left: 6rem;
+}
+
+.margin-bottom{
+    margin-bottom: 2rem;
+}
+
+.one > h3{
+    font-size: 2rem;
+}
+
+.one > p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    align-self: flex-start;
+    margin-left: 6rem;
+}
+
+.btn{
+    border: none;
+    color: #fff;
+    font-weight: 400;
+    font-size: 2rem;
+    width: 46.8rem;
+    height: 7.3rem;
+    background: rgba(9, 7, 87, 0.84);
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    align-self: flex-start;
+    margin-left: 6rem;
+    cursor: pointer;
+}
+
+.border-bottom{
+    align-self: center;
+    width: 50%;
+    color: black;
+    margin-bottom: 2rem;
+}
+
+.one > .btn-small{
+    border: none;
+    width: 181px;
+    height: 51px;
+    background: #FA4F22;
+    border-radius: 20px;
+    align-self: center;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+}
+
+a{
+    text-decoration: none;
+}
+
+.two{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.two > form{
+    color: #fff;
+    padding: 2rem 2rem;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    background: rgba(2, 2, 2, 0.67);
+    border-radius: 25px;
+}
+
+.two > form > label{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.two > form > input{
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    background: rgba(120, 120, 129, 0.71);
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+}
+
+.two > form > input:focus{
+    outline: none;
+}
+
+.two > form > .form-btn {
+    background: rgba(9, 7, 87, 0.77);
+    border-radius: 20px;
+    color: #fff;
+    border: none;
+    align-self: center;
+    width: 215px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.two > form > a {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+#response{
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 2rem;
+    font-weight: 600;
+    background-color: #fff;
+    color: #000;
+    padding: 1rem 2rem;
+}
+
+.hidden{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    display: none;
+}
+

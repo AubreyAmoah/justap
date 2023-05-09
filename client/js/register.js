@@ -96,16 +96,19 @@ let submitRegister = () => {
 
         const user = await response.json();
         if (response.ok) {
-            if(responseDiv.classList.contains('hidden')) {
-                responseDiv.classList.remove('hidden')
-            }
-            responseDiv.innerHTML = `Account succesfully created `;
             localStorage.setItem("token", user.token);
-            setTimeout(() => {
-                responseDiv.classList.add('hidden');
-                window.location.href = '#/welcome';
-                window.location.reload();
-            }, 900);
+            if(user.token){
+                if(responseDiv.classList.contains('hidden')) {
+                    responseDiv.classList.remove('hidden')
+                }
+                responseDiv.innerHTML = `Account succesfully created `;
+    
+                setTimeout(() => {
+                    responseDiv.classList.add('hidden');
+                    window.location.href = '#/welcome';
+                    window.location.reload();
+                }, 900);
+            }
         } else {
             if(responseDiv.classList.contains('hidden')) {
                 responseDiv.classList.remove('hidden')

@@ -966,6 +966,31 @@ app.get("/user-list", async(req, res) => {
 
 })
 
+app.get("/user-bio-list", async(req, res) => {
+  const token = req.body.token || req.query.token || req.headers["x-access-token"];
+  const decoded = jwt.verify(token, TOKEN_KEY);
+
+
+  const user = await User.findById(decoded.user_id);
+  const userBioData = await BioData.findOne({ user });
+
+  console.log(userBioData);
+
+  if (user.token === token) {
+    BioData.find({ user: { $ne: user.id }, campus: { $in: userBioData.campus }, level: { $in: userBioData.level_interest }, gender: { $in: userBioData.gender_interest } }, (err, users) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(users);
+        return res.status(200).json(users);
+      }
+    })
+  } else { 
+    return res.status(400).json({data:'invalid token'});
+  }
+
+})
+
 app.get("/get-chats", async(req,res) => {
   const token = req.body.token || req.query.token || req.headers["x-access-token"];
   const decoded = jwt.verify(token, TOKEN_KEY);

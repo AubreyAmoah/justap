@@ -65,15 +65,20 @@ let submitLogin = () => {
             const user = await response.json();
             // Save token to local storage
             localStorage.setItem("token", user.token);
+            // if (user.token){
+
+            // }
             if(responseDiv.classList.contains('hidden')) {
                 responseDiv.classList.remove('hidden')
             }
             responseDiv.innerHTML=`Hello, ${user.first_name}`
+
             setTimeout(() => {
                 responseDiv.classList.add('hidden');
                 window.location.href="#/dashboard";
                 window.location.reload();
-            }, 600);
+
+            }, 200);
 
         } else {
             const user = await response.json();
@@ -84,7 +89,7 @@ let submitLogin = () => {
             console.log('error')
             setTimeout(() => {
                 responseDiv.classList.add('hidden');
-            }, 600);
+            }, 200);
         }
       } catch (error) {
         if(responseDiv.classList.contains('hidden')) {
@@ -94,7 +99,7 @@ let submitLogin = () => {
         console.error(error);
         setTimeout(() => {
             responseDiv.classList.add('hidden');
-        }, 600);
+        }, 200);
       }
     });
   }

@@ -39,16 +39,31 @@ let generateDashBoardPage = () => {
 let generateUserCarousel = () => {
   return(
     document.getElementById('dashboard-root').innerHTML = `
-    <div class="carousel-container">
+    <div class="carousel-container" id="carousel">
         <div class="carousel-slide">
-          <img class="carousel-image" src="" alt="Image 1">
-          <img class="carousel-image" src="" alt="Image 2">
-          <img class="carousel-image" src="" alt="Image 3">
-          <img class="carousel-image" src="" alt="Image 4">
+          <img class="carousel-image" src="./images/blaclkk.jpg" alt="Image 1">
+          <img class="carousel-image" src="./images/corse.jpg" alt="Image 2">
+          <img class="carousel-image" src="./images/sofa.jpg" alt="Image 3">
+          <img class="carousel-image" src="./images/R.jpg" alt="Image 4">
         </div>
         
+        <div class="carousel-background"></div>
         <a class="prev" onclick="prevSlide()">&#10094;</a>
         <a class="next" onclick="nextSlide()">&#10095;</a>
+
+        <div class="carousel-text-container">
+          <div class="flex-row">
+            <p id="username"></p>,
+            <p id="userage"></p>
+          </div>
+          <div class="flex-row">
+            <p id="usercampus"></p> 
+            Level <p id="userlevel"></p>
+          </div>
+          <p id="userabout"></p>
+        </div>
+        <button class="carousel-btn carousel-btn-love btn-left">&hearts;</button>
+        <button class="carousel-btn carousel-btn-cancel btn-right">&#9587;</button>
       </div>
     `
   )
@@ -165,14 +180,18 @@ let profilePic = () => {
 }
 
 let getUsers = () =>{
+  let carousel = document.getElementById('carousel');
+  let fullName = document.getElementById('username');
+  let age = document.getElementById('userage');
+  let campus = document.getElementById('usercampus');
+  let level = document.getElementById('userlevel');
+  let about = document.getElementById('userabout');
   const headers = new Headers({
     "x-access-token": `${token}`,
     "Content-Type": "application/json"
   });
   //console.log(headers);
-  
-  const images = document.querySelectorAll('img[class="carousel-image"]');
-  
+    
   fetch("http://localhost:5002/user-list", {
     method: "GET",
     headers: headers
@@ -184,7 +203,31 @@ let getUsers = () =>{
       return response.json();
     })
     .then(user => {
-      console.log(user[0])
+      fullName.innerHTML = `${user[0].first_name} ${user[0].last_name}`;
+      age.innerHTML = `${user[0].dob}`;
+      campus.innerHTML = `${user[0].university}`
+      level.innerHTML = `${user[0].level}`
+      about.innerHTML = `${user[0].description}`
+
+      let i = 0;
+      carousel.addEventListener('click', () => {
+      do {
+
+          fullName.innerHTML = `${user[i+1].first_name} ${user[i+1].last_name}`;
+          age.innerHTML = `${user[i+1].dob}`;
+          campus.innerHTML = `${user[i+1].university}`
+          level.innerHTML = `${user[i+1].level}`
+          about.innerHTML = `${user[i+1].description}`
+
+
+        i++;
+        if(i > 3){
+          i = 0;
+        }
+      } while (i);
+    });
+
+      console.log(user)
     })
     .catch(error => {
       console.log(error);

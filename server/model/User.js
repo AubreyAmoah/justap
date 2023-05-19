@@ -14,6 +14,8 @@ const userSchema = new mongoose.Schema({
   dob: {type: String, required: [true,'Please provide dob'], default: null},
   profile_pic: {type:String, default: profilePath},
   activated: {type:Boolean, default:"no"},
+  pending: [{type : String, default: ""}],
+  matches: [{type : String, default: ""}],
   chat_id: {type: String, default:""},
   createdAt: {type:String, default:now},
   password: { type: String },

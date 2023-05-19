@@ -61,27 +61,24 @@ let submitLogin = () => {
           body: JSON.stringify(data),
         });
 
+        const user = await response.json();
         if (response.ok) {
-            const user = await response.json();
             // Save token to local storage
             localStorage.setItem("token", user.token);
-            // if (user.token){
-
-            // }
-            if(responseDiv.classList.contains('hidden')) {
-                responseDiv.classList.remove('hidden')
+            if(user.token){
+                if(responseDiv.classList.contains('hidden')) {
+                    responseDiv.classList.remove('hidden')
+                }
+                responseDiv.innerHTML=`Hello, ${user.first_name}`
+    
+                setTimeout(() => {
+                    responseDiv.classList.add('hidden');
+                    window.location.href="#/login-welcome";
+                    window.location.reload(); 
+                }, 200);
             }
-            responseDiv.innerHTML=`Hello, ${user.first_name}`
-
-            setTimeout(() => {
-                responseDiv.classList.add('hidden');
-                window.location.href="#/dashboard";
-                window.location.reload();
-
-            }, 200);
 
         } else {
-            const user = await response.json();
             if(responseDiv.classList.contains('hidden')) {
                 responseDiv.classList.remove('hidden')
             }

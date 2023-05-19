@@ -2,11 +2,15 @@ let generateBaseProfilePage = () => {
     return(
       document.getElementById('dashboard-root').innerHTML = `
         <div id="base-profile-form" class="flex-column-center">
-          <div class="flex-row">
+          <form method="POST" action="http://localhost:5002/upload-avatar" enctype="multipart/form-data" class="flex-row" id="profile-img-form">
             <img src="" alt="" class="profile-img-edit" id="profile-pic-edit">
-            <input id="profile-img-input" type="file" class="hidden" onchange="changeProfileImg(),displaySaveButton()"/>
-            <label class="pencil-label" for="profile-img-input" id="profile-image-label">&#9998;</label>
-          </div>
+            <input id="profile-img-input" type="file" name="image" class="hidden" onchange="changeProfileImg()"/>
+            <div class="flex-column">
+              <label class="pencil-label" for="profile-img-input" id="profile-image-label">&#9998;</label>
+              <button id="avatar-btn" class='avatar-btn hidden' onclick="setProfilePic()">Save</button>
+            </div>
+
+          </form>
           <div class="flex-row">
             <p class="body-text" id="profile-fname-edit"></p>
             <input class="profile-input hidden" onkeypress="displaySaveButton()" onchange="displaySaveButton()" type="text" id="fname-input" />
@@ -53,6 +57,9 @@ let generateBaseProfilePage = () => {
       reader.readAsDataURL(file);
   
       document.getElementById('profile-image-label').classList.add('edited');
+      if(document.getElementById('avatar-btn').classList.contains('hidden')){
+        document.getElementById('avatar-btn').classList.remove('hidden');
+      }
     }
   }
   
@@ -188,30 +195,8 @@ let generateBaseProfilePage = () => {
     const fname = document.getElementById('profile-fname-edit');
     const lname = document.getElementById('profile-lname-edit');
     const desc = document.getElementById('profile-description-edit');
-    const image = document.getElementById('profile-image-label');
     const responseDiv = document.getElementById("response");
   
-    if (image.classList.contains('edited')){
-      const fileInput = document.getElementById('profile-img-input');
-      const formData = new FormData();
-    
-      formData.append('image', fileInput.files[0]);
-    
-      fetch('http://localhost:5002/upload-avatar', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log('Image uploaded successfully.');
-        } else {
-          console.error('Error uploading image.');
-        }
-      })
-      .catch(error => {
-        console.error('Error uploading image:', error);
-      });
-    }
     if (fname.classList.contains('edited') || lname.classList.contains('edited')) {
         const headers = new Headers({
           "x-access-token": `${token}`,
@@ -306,6 +291,42 @@ let generateBaseProfilePage = () => {
           console.error(error);
         }
       }
+  }
+
+  let setProfilePic = () => {
+    const headers = new Headers({
+      "x-access-token": `${token}`,
+      // "Content-Type": "application/json"
+    });
+
+    const form = document.getElementById('profile-img-form');
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+    
+      const imageFile = document.querySelector("input[name=image]").files[0];
+    
+      const formData = new FormData();
+      formData.append("image", imageFile);
+    
+      const data = { formData };
+
+      fetch('http://localhost:5002/upload-avatar', {
+        method: 'POST',
+        file: data,
+        headers: headers
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Image uploaded successfully.');
+        } else {
+          console.error('Error uploading image.');
+        }
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+      });
+    });
   }
   
   let profilePicEdit = () => {

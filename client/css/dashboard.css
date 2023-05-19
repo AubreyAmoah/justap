@@ -177,6 +177,13 @@ ul li a {
   border: 1px solid #110452;
 }
 
+.avatar-btn{
+  height: 2rem;
+  width: 4rem;
+  font-size: 1.2rem;
+  background-color: green;
+}
+
 label{
   margin: 2rem 2rem;
 

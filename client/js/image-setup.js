@@ -38,7 +38,7 @@ let generateImagesSetupPage = () => {
                     <label for="image-4"><img class="image-box" src="" alt="" id="previewImage-4"></label>
                     <input type="file" accept=".jpg, .png, .gif, .pdf" name="image-4" id="image-4">
                 </div>
-                <button class="next" onclick="submitImages()">next</button>
+                <button class="next" onclick="toDashboard()">next</button>
             </form>
 
         </div>

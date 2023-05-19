@@ -8,6 +8,7 @@ const multer = require('multer');
 const User = require("./model/User");
 const BioData = require("./model/Bio");
 const Message = require("./model/Message");
+const ChatList = require("./model/ChatList");
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -137,7 +138,9 @@ app.post("/register", async(req, res) => {
           gender,
           university,
           level,
-          dob, 
+          dob,
+          pending : [],
+          matches : [], 
           password: encryptedPassword,
         });
   
@@ -196,23 +199,23 @@ app.post("/login", async(req, res) => {
       const user = await User.findOne({ email });
   
       if (user && (await bcrypt.compare(password, user.password))) {
-        // Create token
-        const token = jwt.sign(
-          { user_id: user._id, email },TOKEN_KEY,
-          {
-            expiresIn: "24h",
-          }
-        );
-  
-        // save user token
-        user.token = token;
+          // Create token
+          const token = jwt.sign(
+            { user_id: user._id, email },TOKEN_KEY,
+            {
+              expiresIn: "24h",
+            }
+          );
+    
+          // save user token
+          user.token = token;
 
-        // persist token to be saved in the database
-        await user.save();
-  
-        // user
-        return res.status(200).json(user);
-        }
+          // persist token to be saved in the database
+          await user.save();
+    
+          // user
+          return res.status(200).json(user);
+      }
       return res.status(400).json({data:"Invalid Credentials"});
     } catch (err) {
       console.log(err);
@@ -527,12 +530,11 @@ app.post('/upload-avatar', upload.single('image'), async (req, res) => {
   if(user.token === token) {
     try {
       console.log(image)
+      return res.status(200).json({data:'Image uploaded successfully.'});
     } catch (error) {
       console.error(error)
     }
   }
-  
-  res.status(200).json({data:'Image uploaded successfully.'});
 });
 
 app.post('/upload-images', upload.fields([
@@ -702,6 +704,44 @@ app.post("/change-password", async(req, res) => {
             return res.status(400).json({data:"Password is incorrect"});
     } catch (error) {
       return res.status(400).json({data:`${error} An error occurred`});
+    }
+  }
+})
+
+app.post("/add-to-chat-list", async(req,res) => {
+  const token = req.body.token || req.query.token || req.headers["x-access-token"];
+  const decoded = jwt.verify(token, TOKEN_KEY);
+
+  const user = await User.findById(decoded.user_id);
+
+  if(user.token == token){
+    try {
+      let { user_id } = req.body;
+
+      const currUser = await ChatList.findOne({owner: { $eq: user }});
+
+      if (currUser) {
+        let findUser = await ChatList.findOne({owner: { $eq: user} ,friend_list: { $in: user_id}});
+        if(findUser){
+          return res.status(200).json({data:'user already in friend list'});
+        } else {
+          currUser.friend_list.push(user_id);
+
+          await currUser.save()
+
+          return res.status(200).json({data:'user added to your list'});
+        }
+      } else {
+        let newChatList = await ChatList.create({
+          friend_list: [],
+          owner: user
+        })
+
+        return res.status(200).json({newChatList});
+      }
+    } catch(err){
+      console.log(err);
+      return res.status(400).json({data:`${err} An error occurred`});
     }
   }
 })
@@ -966,51 +1006,45 @@ app.get("/user-list", async(req, res) => {
 
 })
 
-app.get("/user-bio-list", async(req, res) => {
+app.post("/user-bio-list", async(req, res) => {
   const token = req.body.token || req.query.token || req.headers["x-access-token"];
   const decoded = jwt.verify(token, TOKEN_KEY);
 
+  let {user_identity} = req.body
+
 
   const user = await User.findById(decoded.user_id);
-  const userBioData = await BioData.findOne({ user });
-
+  const userBioData = await BioData.findOne({user: { $eq: user_identity }});
   console.log(userBioData);
 
   if (user.token === token) {
-    BioData.find({ user: { $ne: user.id }, campus: { $in: userBioData.campus }, level: { $in: userBioData.level_interest }, gender: { $in: userBioData.gender_interest } }, (err, users) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(users);
-        return res.status(200).json(users);
-      }
-    })
+    return res.status(200).json(userBioData);
   } else { 
     return res.status(400).json({data:'invalid token'});
   }
 
 })
 
-app.get("/get-chats", async(req,res) => {
-  const token = req.body.token || req.query.token || req.headers["x-access-token"];
-  const decoded = jwt.verify(token, TOKEN_KEY);
+// app.get("/get-chats", async(req,res) => {
+//   const token = req.body.token || req.query.token || req.headers["x-access-token"];
+//   const decoded = jwt.verify(token, TOKEN_KEY);
 
 
-  const user = await User.findById(decoded.user_id);
+//   const user = await User.findById(decoded.user_id);
 
-  if (user.token === token) {
-    const msg = await Message.findById();
-    if(user._id === msg.owner){
-      try {
-        const message = msg.messages
-        const reciepient = msg.reciepient
-        return res.status(200).json({"message":message, "reciepient":reciepient})
-      } catch (error) {
-        console.log(err);
-      }
-    }
-  }
-})
+//   if (user.token === token) {
+//     const msg = await Message.findById();
+//     if(user._id === msg.owner){
+//       try {
+//         const message = msg.messages
+//         const reciepient = msg.reciepient
+//         return res.status(200).json({"message":message, "reciepient":reciepient})
+//       } catch (error) {
+//         console.log(err);
+//       }
+//     }
+//   }
+// })
 
 
 app.post("/welcome", auth, (req, res) => {

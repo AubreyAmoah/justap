@@ -27,6 +27,12 @@ window.addEventListener('hashchange', () => {
         case '#/welcome':
             generateWelcomePage();
             break;
+        case '#/login-welcome':
+            generateLoginWelcomePage();
+            setTimeout(() => {
+                openDashboard();
+            }, 200);
+            break;
         case '#/forgot-password':
             generateForgotPasswordPage();
             break;

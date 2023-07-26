@@ -20,7 +20,7 @@ let generateDashBoardPage = () => {
 
                   <i id="">&#128269;</i>
                   <i>&#x1F4AC;</i>
-                  <i>&#128249;</i>
+                  <i id="video-call-btn" onclick="toVideo()">&#128249;</i>
               </div>
               <div class="middle" id="side-root">
 
@@ -34,6 +34,10 @@ let generateDashBoardPage = () => {
         </div>
         `
     )
+}
+
+let toVideo = () => {
+  window.location.href='#/dashboard/video-room'
 }
 
 let generateUserCarousel = () => {

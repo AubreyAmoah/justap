@@ -476,3 +476,53 @@ color: #fff;
   visibility: hidden;
   display: none;
 }
+
+/* for video */
+
+.video{
+  height: 100%;
+  width: 100%;
+
+  background-color: #000;
+  position: relative;
+}
+
+.large-video{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.small-video{
+  position: absolute;
+  top: 67%;
+  right: 5%;
+  height: 30%;
+  width: 15%;
+  object-fit: cover;
+  outline: 3px solid white;
+  outline-offset: .4rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.hangup{
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  background-color: red;
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hangup:hover{
+  outline-offset: .4rem;
+  outline: 3px solid white;
+}

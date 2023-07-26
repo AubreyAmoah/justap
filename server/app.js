@@ -737,7 +737,7 @@ app.post("/add-to-chat-list", async(req,res) => {
           owner: user
         })
 
-        return res.status(200).json({newChatList});
+        return res.status(200).json({data:'user added to your list'});
       }
     } catch(err){
       console.log(err);
@@ -759,38 +759,6 @@ app.post("/send-msg", async(req,res) => {
     return res.status(201).json(msg)
   } catch (err) {
     console.log(err);
-  }
-});
-
-app.post("/send-peerId", async(req,res) => {
-  const token = req.body.token || req.query.token || req.headers["x-access-token"];
-  const decoded = jwt.verify(token, TOKEN_KEY);
-
-  const user = await User.findById(decoded.user_id);
-
-  if (user.token === token){
-    try {
-      const { chat_id } = req.body;
-
-      // Validate user input
-      if ( !(chat_id) ) {
-        return res.status(400).json({data:'invalid peer id'});
-      }
-
-      
-
-      const usr = chat_id;
-
-      user.chat_id = usr;
-
-      // persist token to be saved in the database
-      await user.save();
-
-      return res.status(201).json({data:'success'});
-
-    } catch (err) {
-        console.log(err)
-    }
   }
 });
 
@@ -1019,6 +987,27 @@ app.post("/user-bio-list", async(req, res) => {
 
   if (user.token === token) {
     return res.status(200).json(userBioData);
+  } else { 
+    return res.status(400).json({data:'invalid token'});
+  }
+
+})
+
+app.post("/video-list", async(req, res) => {
+  const token = req.body.token || req.query.token || req.headers["x-access-token"];
+  const decoded = jwt.verify(token, TOKEN_KEY);
+
+
+  const user = await User.findById(decoded.user_id);
+
+  if (user.token === token) {
+    const video = await ChatList.findOne({user});
+    try {
+      const userVideo = await User.find({_id:{ $in: video.friend_list }})
+      return res.status(200).json(userVideo)
+    } catch (error) {
+      return res.status(400).json({data:`${error}`});
+    }
   } else { 
     return res.status(400).json({data:'invalid token'});
   }

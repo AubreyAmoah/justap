@@ -108,6 +108,15 @@ window.addEventListener('hashchange', () => {
             generateProfileMenu();
             generatePasswordUpdatePage();
             break;
+        case '#/dashboard/video-room':
+            generateDashBoardPage();
+            getName();
+            profilePic();
+            generateVideoList();
+            generateVideoCallPage();
+            GetVideoList();
+            getUserStream();
+            break;
         default:
             generateHomePage();
     }
